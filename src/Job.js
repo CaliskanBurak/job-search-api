@@ -1,12 +1,15 @@
-import React from "react";
-import { Badge, Card } from "react-bootstrap";
-import ReactMarkdown from 'react-markdown'
+import React, { useState } from "react";
+import { Badge, Card, Button, Collapse } from "react-bootstrap";
+import ReactMarkdown from "react-markdown";
+import useFetchJobs from "./useFetchJobs";
 
 export default function Job({ job }) {
   console.log("test", job);
+  const [open, setOpen] = useState(false);
+
 
   return (
-    <Card>
+    <Card className="mb-4">
       <Card.Body>
         <div className="d-flex justify-content-between">
           <div>
@@ -23,12 +26,30 @@ export default function Job({ job }) {
               {job.type}
             </Badge>
             <Badge variant="secondary">{job.location}</Badge>
-            <div style={{ wordBreak: 'break-all' }}>
+            <div style={{ wordBreak: "break-all" }}>
               <ReactMarkdown source={job.how_to_apply} />
             </div>
           </div>
-        <img className="d-none d-md-block" height="50" alt={job.company} src={job.company_logo} />
+          <img
+            className="d-none d-md-block"
+            height="50"
+            alt={job.company}
+            src={job.company_logo}
+          />
         </div>
+        <Card.Text>
+          <Button
+            onClick={() => setOpen(prevOpen => !prevOpen)}
+            variant="primary"
+          >
+            {open ? 'Hide Details' : 'View Details'}
+          </Button>
+        </Card.Text>
+        <Collapse in={open}>
+          <div className="mt-4">
+            <ReactMarkdown source={job.description} />
+          </div>
+        </Collapse>
       </Card.Body>
     </Card>
   );
