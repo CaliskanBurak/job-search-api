@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import useFetchJobs from "./useFetchJobs";
 
 export default function Job({ job }) {
-  console.log("test", job);
+  //console.log("test", job);
   const [open, setOpen] = useState(false);
 
 
